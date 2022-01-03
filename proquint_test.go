@@ -15,7 +15,7 @@ func TestUint32(t *testing.T) {
 	want := "bafus-kajav"
 
 	binary.BigEndian.PutUint32(buf, n)
-	result := p.Write(*bytes.NewBuffer(buf))
+	result := p.encode(*bytes.NewBuffer(buf))
 
 	if result != want {
 		t.Errorf("got:%s want: %s", result, want)
@@ -25,12 +25,12 @@ func TestUint32(t *testing.T) {
 func TestUint64(t *testing.T) {
 	var buf = make([]byte, 8)
 	var p Proquint
-	var n uint64 = 0xbc614e7f000001
+	var n uint64 = 0x00bc614e7f000001
 
 	want := "bafus-kajav-lusab-babad"
 
 	binary.BigEndian.PutUint64(buf, n)
-	result := p.Write(*bytes.NewBuffer(buf))
+	result := p.encode(*bytes.NewBuffer(buf))
 
 	if result != want {
 		t.Errorf("got:%s want: %s", result, want)
@@ -59,9 +59,19 @@ func TestIP(t *testing.T) {
 
 	for key, val := range presets {
 		ip.addr = net.ParseIP(key)
-		r := pq.Write(ip.Read())
 
-		if r != val {
+		asString := pq.encode(ip.asBytes())
+
+		b := ip.asBytes()
+
+		if asString != val {
+			t.Errorf("")
+		}
+
+		//Test Decoding
+		asBytes := pq.decode(val)
+
+		if asBytes.String() != b.String() {
 			t.Errorf("")
 		}
 	}
