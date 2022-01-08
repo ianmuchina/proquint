@@ -3,7 +3,6 @@ package proquint
 import (
 	"bytes"
 	"encoding/binary"
-	"net"
 	"testing"
 )
 
@@ -58,22 +57,29 @@ func TestIP(t *testing.T) {
 	}
 
 	for key, val := range presets {
-		ip.addr = net.ParseIP(key)
 
-		asString := pq.encode(ip.asBytes())
+		buf := ip.encode(key)
+		asProquint := pq.encode(buf)
 
-		b := ip.asBytes()
-
-		if asString != val {
+		if asProquint != val {
 			t.Errorf("")
 		}
 
 		//Test Decoding
 		asBytes := pq.decode(val)
+		asString := ip.deocde(*asBytes)
 
-		if asBytes.String() != b.String() {
+		//Compare Bytes to Expected result
+		if asBytes.String() != buf.String() {
 			t.Errorf("")
 		}
+
+		if asString != key {
+			t.Errorf("")
+		}
+
+		//Test Encoding
+
 	}
 
 }
