@@ -1,4 +1,4 @@
-package proquint
+package main
 
 import (
 	"bytes"
@@ -36,7 +36,7 @@ var maskLast8 uint32 = 0xff
 type Proquint struct{}
 
 //Convert a Bytes.Buffer to Proquint
-func (p Proquint) encode(b bytes.Buffer) string {
+func (p Proquint) Encode(b bytes.Buffer) string {
 	var result []string
 
 	//If Byte length is odd, incrsease by 1 to make it even
@@ -68,7 +68,7 @@ func (p Proquint) encode(b bytes.Buffer) string {
 }
 
 //Decodes a Proquint to byte Buffer
-func (p Proquint) decode(s string) *bytes.Buffer {
+func (p Proquint) Decode(s string) *bytes.Buffer {
 
 	var result []byte
 	var n uint16

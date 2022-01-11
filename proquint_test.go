@@ -1,4 +1,4 @@
-package proquint
+package main
 
 import (
 	"bytes"
@@ -14,7 +14,7 @@ func TestUint32(t *testing.T) {
 	want := "bafus-kajav"
 
 	binary.BigEndian.PutUint32(buf, n)
-	result := p.encode(*bytes.NewBuffer(buf))
+	result := p.Encode(*bytes.NewBuffer(buf))
 
 	if result != want {
 		t.Errorf("got:%s want: %s", result, want)
@@ -29,7 +29,7 @@ func TestUint64(t *testing.T) {
 	want := "bafus-kajav-lusab-babad"
 
 	binary.BigEndian.PutUint64(buf, n)
-	result := p.encode(*bytes.NewBuffer(buf))
+	result := p.Encode(*bytes.NewBuffer(buf))
 
 	if result != want {
 		t.Errorf("got:%s want: %s", result, want)
@@ -58,16 +58,16 @@ func TestIP(t *testing.T) {
 
 	for key, val := range presets {
 
-		buf := ip.encode(key)
-		asProquint := pq.encode(buf)
+		buf := ip.Encode(key)
+		asProquint := pq.Encode(buf)
 
 		if asProquint != val {
 			t.Errorf("")
 		}
 
 		//Test Decoding
-		asBytes := pq.decode(val)
-		asString := ip.deocde(*asBytes)
+		asBytes := pq.Decode(val)
+		asString := ip.Deocde(*asBytes)
 
 		//Compare Bytes to Expected result
 		if asBytes.String() != buf.String() {

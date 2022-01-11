@@ -1,5 +1,5 @@
 //Helper functions to work with ipv4 addresses
-package proquint
+package main
 
 import (
 	"bytes"
@@ -13,7 +13,7 @@ import (
 type IP struct{}
 
 //Convert IPv4 Address to 4 byte buffer. Currently accepts quad dotted ips
-func (x IP) encode(s string) bytes.Buffer {
+func (x IP) Encode(s string) bytes.Buffer {
 
 	ip := net.ParseIP(s)
 	// Address as Integer
@@ -56,7 +56,7 @@ func (x IP) encode(s string) bytes.Buffer {
 }
 
 //Decode byte buffer to IPv4 Address string.
-func (x IP) deocde(buf bytes.Buffer) string {
+func (x IP) Deocde(buf bytes.Buffer) string {
 
 	var n uint32 = binary.BigEndian.Uint32(buf.Bytes())
 
