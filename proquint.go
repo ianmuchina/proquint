@@ -98,3 +98,31 @@ func (p Proquint) Decode(s string) *bytes.Buffer {
 
 	return bytes.NewBuffer(result)
 }
+
+func IsProquint(value string) bool {
+	var ok bool
+	// Iterate over every proquint, separated by dash
+	for _, pq := range strings.Split(value, "-") {
+		// Must Be 5 characters in length
+		if len(pq) != 5 {
+			return false
+		}
+		for i, char := range pq {
+			if (i % 2) == 0 {
+				// for index 0, 2, 4
+				// Check if value is valid consonant,
+				_, ok = cd[string(char)]
+			} else {
+				// for index 1, 3
+				// Check if value is a valid vowel
+				_, ok = vd[string(char)]
+			}
+			//Character is invalid
+			if !ok {
+				return false
+			}
+		}
+	}
+
+	return true
+}
