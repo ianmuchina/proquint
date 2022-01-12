@@ -56,7 +56,7 @@ func (x IP) Encode(s string) bytes.Buffer {
 }
 
 //Decode byte buffer to IPv4 Address string.
-func (x IP) Deocde(buf bytes.Buffer) string {
+func (x IP) Decode(buf bytes.Buffer) string {
 
 	var n uint32 = binary.BigEndian.Uint32(buf.Bytes())
 

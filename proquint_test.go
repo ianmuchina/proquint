@@ -67,7 +67,7 @@ func TestIP(t *testing.T) {
 
 		//Test Decoding
 		asBytes := pq.Decode(val)
-		asString := ip.Deocde(*asBytes)
+		asString := ip.Decode(*asBytes)
 
 		//Compare Bytes to Expected result
 		if asBytes.String() != buf.String() {
